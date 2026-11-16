@@ -39,7 +39,7 @@ export default function Navbar({
         <div className="relative hidden sm:block">
           <Search
             size={18}
-            className="absolute start-3 top-1/2 -translate-y-1/2 text-slate-400"
+            className="absolute inset-s-3 top-1/2 -translate-y-1/2 text-slate-400"
           />
 
           <input
@@ -70,7 +70,7 @@ export default function Navbar({
         >
           <Bell size={20} />
 
-          <span className="absolute end-2 top-2 h-2 w-2 rounded-full bg-red-500" />
+          <span className="absolute inset-e-2 top-2 h-2 w-2 rounded-full bg-red-500" />
         </button>
 
         <div className="flex items-center gap-3 border-s border-slate-200 ps-3">
