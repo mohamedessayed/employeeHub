@@ -1,114 +1,146 @@
-import { NavLink } from "react-router-dom"
-import { BriefcaseBusiness, X } from "lucide-react";
-import { BarChart3, Building2, LayoutDashboard, Settings, Users, type LucideIcon } from "lucide-react";
-import { useLanaguage } from "../../hooks/useLanaguage";
+
+import { NavLink } from 'react-router-dom';
+
+import {
+  LayoutDashboard,
+  Users,
+  Building2,
+  BarChart3,
+  Settings,
+  BriefcaseBusiness,
+} from 'lucide-react';
+
+import { useLanguage } from '../../context/LanguageContext';
 
 interface SidebarProps {
-    isOpen:boolean,
-    onClose:()=>void
-}
-interface sidebarItemsType {
-    lable:string,
-    path:string,
-    icon:LucideIcon
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function SidebarMenu ({isOpen, onClose}:SidebarProps) {
+export default function Sidebar({
+  isOpen,
+  onClose,
+}: SidebarProps) {
+  const { t } = useLanguage();
 
-
-  
-
-
-
-const {t} = useLanaguage();
-
- const menuItems: sidebarItemsType[] = [
+  const menuItems = [
     {
-        lable: t('dashboard'),
-        path:"/",
-        icon: LayoutDashboard
+      label: t('dashboard'),
+      path: '/',
+      icon: LayoutDashboard,
     },
-
     {
-        lable: t('employees'),
-        path:"/employees",
-        icon: Users
+      label: t('employees'),
+      path: '/employees',
+      icon: Users,
     },
-
     {
-        lable: t('departments'),
-        path:"/departments",
-        icon: Building2
+      label: t('departments'),
+      path: '/departments',
+      icon: Building2,
     },
-
     {
-        lable: t('reports'),
-        path:"/reports",
-        icon: BarChart3
+      label: t('reports'),
+      path: '/reports',
+      icon: BarChart3,
     },
-
     {
-        lable: t('settings'),
-        path:"/settings",
-        icon: Settings
+      label: t('settings'),
+      path: '/settings',
+      icon: Settings,
     },
-]
+  ];
 
-    return <>
-    {isOpen && (<div onClick={onClose} className="fixed inset-0 z-40 bg-black lg:hidden"></div>)}
+  return (
+    <>
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+        />
+      )}
 
-    <aside className={`fixed inset-y-0 start-0 z-50 flex w-64 flex-col bg-slate-900 text-white transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0 ${isOpen? 'translate-x-0':'ltr:-translate-x-full rtl:translate-x-full'}` }>
+      <aside
+        className={`
+          fixed inset-y-0 start-0 z-50
+          flex w-64 flex-col bg-slate-900 text-white
+          transition-transform duration-300
+          lg:static lg:z-auto lg:translate-x-0
+          ${isOpen
+            ? 'translate-x-0'
+            : 'ltr:-translate-x-full rtl:translate-x-full'
+          }
+        `}
+      >
+        {/* Logo */}
 
-        {/* logo */}
+        <div className="flex h-20 items-center gap-3 border-b border-slate-700 px-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
+            <BriefcaseBusiness size={22} />
+          </div>
 
-<div className="flex h-20 items-center gap-3 border-b border-slate-700 px-6">
-<div className="flex h-20 w-10 items-center bg-blue-600 rounded-xl justify-center">
-    
-    <BriefcaseBusiness size={22} />
+          <div>
+            <h1 className="text-lg font-bold">
+              EmployeeHub
+            </h1>
 
-</div>
+            <p className="text-xs text-slate-400">
+              Management System
+            </p>
+          </div>
+        </div>
 
-<div>
-    <h1 className="text-lg font-bold">EmployeeHub</h1>
+        {/* Navigation */}
 
-    <p className="text-xs text-slate-400">Managemnet system</p>
-</div>
-</div>
+        <nav className="flex-1 space-y-2 px-4 py-6">
 
-        <nav>
+          <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Main Menu
+          </p>
 
-<p className="mb-4 px-3 text-xs font-semibold uppercase text-slate-400 tracking-wider ">
-    Main Menu
-</p>
-
-            {menuItems.map((item)=> {
+          {menuItems.map((item) => {
             const Icon = item.icon;
 
-            
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === '/'}
+                onClick={onClose}
+                className={({ isActive }) => `
+                  flex items-center gap-3 rounded-xl px-3 py-3
+                  transition-colors
+                  ${
+                    isActive
+                      ? 'bg-blue-600 text-white'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  }
+                `}
+              >
+                <Icon size={20} />
 
-
-            return (<NavLink to={item.path} key={item.path} end={item.path=== '/'} >
-                <Icon size={20} /> 
-                <span className="text-sm font-medium">{item.lable}</span>
-                
-                </NavLink>)
-        }
-
-    )} 
+                <span className="text-sm font-medium">
+                  {item.label}
+                </span>
+              </NavLink>
+            );
+          })}
 
         </nav>
 
+        {/* Footer */}
 
-        <footer className="border-t border-slate-700 p-5">
-            <p className="text-slate-400">
-                Employee Managment system
-            </p>
-            <p className="text-slate-500">
-                Version 1.0.0
-            </p>
-        </footer>
+        <div className="border-t border-slate-700 p-5">
+          <p className="text-xs text-slate-400">
+            Employee Management System
+          </p>
 
-    </aside>
+          <p className="mt-1 text-xs text-slate-500">
+            Version 1.0.0
+          </p>
+        </div>
+
+      </aside>
     </>
-
+  );
 }
