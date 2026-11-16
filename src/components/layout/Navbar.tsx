@@ -5,8 +5,8 @@ import {
   Bell,
   Languages,
 } from 'lucide-react';
+import { useLanaguage } from '../../hooks/useLanaguage';
 
-import { useLanguage } from '../../context/LanguageContext';
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -15,7 +15,7 @@ interface NavbarProps {
 export default function Navbar({
   onMenuClick,
 }: NavbarProps) {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, t } = useLanaguage();
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'ar' : 'en');

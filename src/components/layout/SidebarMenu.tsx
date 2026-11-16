@@ -9,8 +9,8 @@ import {
   Settings,
   BriefcaseBusiness,
 } from 'lucide-react';
+import { useLanaguage } from '../../hooks/useLanaguage';
 
-import { useLanguage } from '../../context/LanguageContext';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ export default function Sidebar({
   isOpen,
   onClose,
 }: SidebarProps) {
-  const { t } = useLanguage();
+  const { t } = useLanaguage();
 
   const menuItems = [
     {

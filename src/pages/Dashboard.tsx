@@ -5,11 +5,11 @@ import {
   UserX,
   Building2,
 } from 'lucide-react';
+import { useLanaguage } from '../hooks/useLanaguage';
 
-import { useLanguage } from '../context/LanguageContext';
 
 export default function Dashboard() {
-  const { t } = useLanguage();
+  const { t } = useLanaguage();
 
   const stats = [
     {
